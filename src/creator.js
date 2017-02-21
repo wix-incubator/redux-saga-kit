@@ -1,5 +1,4 @@
-import { takeEvery, takeLatest } from 'redux-saga';
-import { fork, take, cancel, throttle } from 'redux-saga/effects';
+import { fork, take, cancel, throttle, takeEvery, takeLatest } from 'redux-saga/effects';
 import _ from 'lodash';
 
 function* runTask (takerFunc, pattern, saga, ...args) {
@@ -16,7 +15,7 @@ function* listenToCancel(cancelPatterns, task, taker, pattern, saga, ...args) {
     }
 }
 
-function *takeWithCancel(isLatest = false, pattern, cancelPatterns = [], saga, ...args) {
+function* takeWithCancel(isLatest = false, pattern, cancelPatterns = [], saga, ...args) {
     let taker = isLatest ? takeLatest : takeEvery;
     let task = yield fork(runTask, taker, pattern, saga, ...args);
 
@@ -31,11 +30,11 @@ function *takeWithCancel(isLatest = false, pattern, cancelPatterns = [], saga, .
 
 const generateWatcher = (sagaParams, actionType, callback) => function* () {
     if (_.isFunction(callback)) {
-        yield* takeEvery(actionType, callback(sagaParams));
+        yield takeEvery(actionType, callback(sagaParams));
     } else if (_.isFunction(callback.fn)) {
         if (callback.throttle) {
             let throttleMs = _.isNumber(callback.throttle) ? callback.throttle : 100;
-            yield* throttle(throttleMs, actionType, callback.fn(sagaParams));
+            yield throttle(throttleMs, actionType, callback.fn(sagaParams));
         } else {
             let cancelOn = callback.cancelOn || [];
             yield* takeWithCancel(!!callback.takeLatest, actionType, cancelOn, callback.fn(sagaParams));
