@@ -182,7 +182,7 @@ describe('sagaCreator', function () {
         await delay(100);
     });
 
-    it('should take handler without saga params', async () => {
+    it('should take handler without saga params', () => {
         const saga = sagaCreator({
             [ACTIONS.ACTION]: {handler: handlerNoParams, noParams: true}
         });
@@ -192,7 +192,6 @@ describe('sagaCreator', function () {
 
         sagaTester.dispatch(action());
         expect(mySpy.calledOnce, 'handler called once').to.be.true;
-        await testDelay(200);
         sagaTester.dispatch(action());
         expect(mySpy.calledTwice, 'handler called twice').to.be.true;
     });
