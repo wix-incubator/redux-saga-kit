@@ -12,3 +12,7 @@ This package aims to help with the creation and development of sagas.
 At the moment, this project includes only two methods:
 * The **sagaCreator** - used for creating sagas
  * **stateSelector** - A helper method to easily create saga selectors
+
+*** 
+
+**MORE TO COME - WORK IN PROGRESS**
