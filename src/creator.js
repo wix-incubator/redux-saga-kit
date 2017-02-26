@@ -28,16 +28,17 @@ function* takeWithCancel(isLatest = false, pattern, cancelPatterns = [], saga, .
     }
 }
 
-const generateWatcher = (sagaParams, actionType, callback) => function* () {
-    if (_.isFunction(callback)) {
-        yield takeEvery(actionType, callback(sagaParams));
-    } else if (_.isFunction(callback.fn)) {
-        if (callback.throttle) {
-            let throttleMs = _.isNumber(callback.throttle) ? callback.throttle : 100;
-            yield throttle(throttleMs, actionType, callback.fn(sagaParams));
+const generateWatcher = (sagaParams, actionType, defs) => function* () {
+    if (_.isFunction(defs)) {
+        yield takeEvery(actionType, defs(sagaParams));
+    } else if (_.isFunction(defs.handler)) {
+        const handler = defs.noParams ? defs.handler : defs.handler(sagaParams);
+        if (defs.throttle) {
+            let throttleMs = _.isNumber(defs.throttle) ? defs.throttle : 100;
+            yield throttle(throttleMs, actionType, handler);
         } else {
-            let cancelOn = callback.cancelOn || [];
-            yield* takeWithCancel(!!callback.takeLatest, actionType, cancelOn, callback.fn(sagaParams));
+            let cancelOn = defs.cancelOn || [];
+            yield* takeWithCancel(!!defs.takeLatest, actionType, cancelOn, handler);
         }
     }
 };
@@ -50,16 +51,10 @@ export default function (actionConfig) {
     return function* sagaCreator(sagaParams) {
         let forks = [];
 
-        _.forEach(actionConfig, (callback, actionType) => {
-            forks.push(fork(generateWatcher(sagaParams, actionType, callback)));
+        _.forEach(actionConfig, (defs, actionType) => {
+            forks.push(fork(generateWatcher(sagaParams, actionType, defs)));
         });
 
         yield forks;
     };
 }
-
-// export function* forkAnDispatch ({patterns, callback} = {patterns: [], callback: () => {}}) {
-//     return new Promise()
-//     const result = yield take(patterns);
-//     yield call(callback, result);
-// }

@@ -1,8 +1,15 @@
 {
-  "name": "redux-saga-kit",
+  "name": "@wix/redux-saga-kit",
   "version": "0.1.0",
   "description": "A kit with tools to help create sagas",
-  "main": "index.js",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/_mocha  --compilers js:babel-register \"test/**/*.test.js\"",
+    "build": ":",
+    "compile": "babel -d dist/ src/",
+    "release": "wnpm-release -- --no-shrinkwrap",
+    "prepublish": "npm test && npm run compile"
+  },
   "dependencies": {
     "lodash": "^4.17.4",
     "redux": "^3.6.0",
@@ -24,14 +31,9 @@
     "redux-saga-tester": "^1.0.143",
     "sinon": "^1.17.7"
   },
-  "scripts": {
-    "prepublish": "npm test && npm run compile",
-    "test": "mocha --compilers js:babel-register",
-    "compile": "babel -d dist/ src/"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonathanadler/redux-saga-kit.git"
+    "url": "git+https://github.com/wix-private/redux-saga-kit.git"
   },
   "keywords": [
     "redux",

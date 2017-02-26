@@ -52,6 +52,10 @@ describe('sagaCreator', function () {
         mySpy();
     };
 
+    function* handlerNoParams () {
+        yield mySpy();
+    }
+
     beforeEach(() => {
         mySpy.reset();
         sagaTester = createSagaTester();
@@ -72,9 +76,9 @@ describe('sagaCreator', function () {
         expect(mySpy.calledTwice, 'handler called twice').to.be.true;
     });
 
-    it('should take every with fn callback syntax', async () => {
+    it('should take every with handler callback syntax', async () => {
         const saga = sagaCreator({
-            [ACTIONS.ACTION]: {fn: handler}
+            [ACTIONS.ACTION]: {handler: handler}
         });
         sagaTester.start(function* () {
             yield saga();
@@ -89,7 +93,7 @@ describe('sagaCreator', function () {
 
     it('should take last with takeLatest', async () => {
         const saga = sagaCreator({
-            [ACTIONS.DELAYED_ACTION]: {fn: delayedHandler, takeLatest: true}
+            [ACTIONS.DELAYED_ACTION]: {handler: delayedHandler, takeLatest: true}
         });
         sagaTester.start(function* () {
             yield saga();
@@ -104,7 +108,7 @@ describe('sagaCreator', function () {
 
     it('should cancel with cancelOn - one action', async () => {
         const saga = sagaCreator({
-            [ACTIONS.DELAYED_ACTION]: {fn: delayedHandler, cancelOn: ACTIONS.SECOND_ACTION}
+            [ACTIONS.DELAYED_ACTION]: {handler: delayedHandler, cancelOn: ACTIONS.SECOND_ACTION}
         });
         sagaTester.start(function* () {
             yield saga();
@@ -119,7 +123,7 @@ describe('sagaCreator', function () {
 
     it('should cancel with cancelOn - multiple', async () => {
         const saga = sagaCreator({
-            [ACTIONS.DELAYED_ACTION]: {fn: delayedHandler, cancelOn: [ACTIONS.ACTION, ACTIONS.SECOND_ACTION]}
+            [ACTIONS.DELAYED_ACTION]: {handler: delayedHandler, cancelOn: [ACTIONS.ACTION, ACTIONS.SECOND_ACTION]}
         });
         sagaTester.start(function* () {
             yield saga();
@@ -141,7 +145,7 @@ describe('sagaCreator', function () {
     it('should throttle events - with 100 ms', async () => {
         const THROTTLE_TIME = 100;
         const saga = sagaCreator({
-            [ACTIONS.ACTION]: {fn: handler, throttle: THROTTLE_TIME}
+            [ACTIONS.ACTION]: {handler: handler, throttle: THROTTLE_TIME}
         });
         sagaTester.start(function* () {
             yield saga();
@@ -161,7 +165,7 @@ describe('sagaCreator', function () {
     it('should throttle events - with 500 ms', async () => {
         const THROTTLE_TIME = 500;
         const saga = sagaCreator({
-            [ACTIONS.ACTION]: {fn: handler, throttle: THROTTLE_TIME}
+            [ACTIONS.ACTION]: {handler: handler, throttle: THROTTLE_TIME}
         });
         sagaTester.start(function* () {
             yield saga();
@@ -176,5 +180,20 @@ describe('sagaCreator', function () {
 
         expect(mySpy.callCount, 'mySpy.callCount').to.be.most(Math.ceil(timer / THROTTLE_TIME));
         await delay(100);
+    });
+
+    it('should take handler without saga params', async () => {
+        const saga = sagaCreator({
+            [ACTIONS.ACTION]: {handler: handlerNoParams, noParams: true}
+        });
+        sagaTester.start(function* () {
+            yield saga();
+        });
+
+        sagaTester.dispatch(action());
+        expect(mySpy.calledOnce, 'handler called once').to.be.true;
+        await testDelay(200);
+        sagaTester.dispatch(action());
+        expect(mySpy.calledTwice, 'handler called twice').to.be.true;
     });
 });
