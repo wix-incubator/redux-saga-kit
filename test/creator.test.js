@@ -142,6 +142,25 @@ describe('sagaCreator', function () {
         expect(mySpy.callCount, 'mySpy.callCount').to.equal(0);
     });
 
+    it('should throttle events - default throttle (100ms)', async () => {
+        const saga = sagaCreator({
+            [ACTIONS.ACTION]: {handler: handler, throttle: true}
+        });
+        sagaTester.start(function* () {
+            yield saga();
+        });
+
+        let timer = Date.now();
+        for (let i = 0; i < 100; i++) {
+            sagaTester.dispatch(action());
+            await delay(10);
+        }
+        timer = Date.now() - timer;
+
+        expect(mySpy.callCount, 'mySpy.callCount').to.be.most(Math.ceil(timer / 100));
+        await delay(100);
+    });
+
     it('should throttle events - with 100 ms', async () => {
         const THROTTLE_TIME = 100;
         const saga = sagaCreator({
