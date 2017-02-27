@@ -42,10 +42,10 @@
   "author": "jonathana@wix.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jonathanadler/redux-saga-kit/issues"
+    "url": "https://github.com/wix-private/redux-saga-kit/issues"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "homepage": "https://github.com/jonathanadler/redux-saga-kit#readme"
+  "homepage": "https://github.com/wix-private/redux-saga-kit#readme"
 }
