@@ -4,7 +4,7 @@
   "description": "A kit with tools to help create sagas",
   "main": "src/index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/_mocha  --compilers js:babel-register \"test/**/*.test.js\"",
+    "test": "node_modules/mocha/bin/_mocha  --require test/setup.js \"test/**/*.test.js\"",
     "build": ":",
     "compile": "babel -d dist/ src/",
     "release": "wnpm-release -- --no-shrinkwrap",
@@ -18,6 +18,7 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.14.0",
+    "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.14.0",
