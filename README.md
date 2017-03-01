@@ -4,19 +4,32 @@ redux-saga is a very sophisticated and awesome library, but it's not that easy t
 
 This package aims to help with the creation and development of sagas.
 
-## Prerequisites:
+## Getting started
+### Prerequisites:
 * [redux](http://redux.js.org/)
 * [redux-saga](https://redux-saga.github.io/redux-saga/)
+
+### Install  
+
+    npm install --save @wix/redux-saga-kit
+    
 
 ## What This Project Includes
 At the moment, this project includes only two methods:
 * **sagaCreator** - used for creating sagas
 * **stateSelector** - A helper method to easily create saga selectors
 
-### sagaCreator
+### sagaCreator  
+```sagaCreator(definition)```  
+**definition**: object
+###### returns: Generator Function 
 The sagaCreator accepts a definitions object, and returns one saga that takes different 
 (using takeEvery or takeLatest) actions, and forks their handlers.
- 
+
+#### How to use
+
+    import { sagaCreator } from '@wix/redux-saga-kit';
+      
     const saga = sagaCreator({...definitionsObject});
 
 The definition object should have this form:
@@ -88,3 +101,18 @@ _default: false_
 
 As described above, this option gives an option to pass a handler without saga params
   
+  
+### stateSelector 
+```stateSelector(pathToProp, [defaultValue])```  
+**pathToProp**: string  
+**defaultValue**: any (optional)
+###### returns: Any
+
+#### How to use
+
+    import { stateSelector } from '@wix/redux-saga-kit';
+      
+    const myPropSelector = stateSelector('path.to.my.prop', {default: 'value'});
+    
+This is a pretty straight forward method.
+ It uses lodash's [get](https://lodash.com/docs/4.17.4#get) method to get the property from the state.
