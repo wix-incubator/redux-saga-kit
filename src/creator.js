@@ -47,8 +47,8 @@ const generateWatcher = (sagaParams, actionType, defs) => function* () {
 // DEFAULT SAGA EXPORT
 // ============================================================================
 
-export default function (actionConfig) {
-    return function* sagaCreator(sagaParams) {
+export default function sagaCreator(actionConfig) {
+    return function* (sagaParams) {
         let forks = [];
 
         _.forEach(actionConfig, (defs, actionType) => {
