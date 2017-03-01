@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { delay } from 'redux-saga';
-import sagaCreator from '../src/creator';
+import {sagaCreator} from '../src/creator';
 import { delay as testDelay } from './helpers/testHelpers';
 import SagaTester from 'redux-saga-tester';
 import sinon from 'sinon';

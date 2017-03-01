@@ -1,7 +1,5 @@
-import sagaCreator from './creator';
-import { stateSelector } from './kit';
-
-export default {
-    sagaCreator,
-    stateSelector
-};
+export { sagaCreator } from './creator';
+export { stateSelector } from './kit';
+//
+//
+// export {sagaCreator};
