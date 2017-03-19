@@ -2,7 +2,7 @@
   "name": "@wix/redux-saga-kit",
   "version": "1.0.0",
   "description": "A kit with tools to help create sagas",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "node_modules/mocha/bin/_mocha  --require test/setup.js \"test/**/*.test.js\"",
     "build": ":",
