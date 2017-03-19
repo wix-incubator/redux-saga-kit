@@ -2,5 +2,5 @@
 .git/
 node_modules/
 dist
-.babelrc
-.eslintrc.js
+#.babelrc
+#.eslintrc.js
