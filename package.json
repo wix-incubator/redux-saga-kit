@@ -7,8 +7,8 @@
     "test": "node_modules/mocha/bin/_mocha  --require test/setup.js \"test/**/*.test.js\"",
     "build": ":",
     "compile": "babel -d dist/ src/",
-    "release": "wnpm-release -- --no-shrinkwrap",
-    "prepublish": "npm test && npm run compile"
+    "prepublish": "npm run compile && npm test",
+    "release": "wnpm-release -- --no-shrinkwrap"
   },
   "dependencies": {
     "lodash": "^4.17.4",
