@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node_modules/mocha/bin/_mocha  --require test/setup.js \"test/**/*.test.js\"",
     "build": "npm run compile",
-    "compile": "babel -d dist/ src/",
+    "compile": "rm -rf dist/ && babel -d dist/ src/",
     "prepublish": "npm run compile && npm test",
     "release": "wnpm-release -- --no-shrinkwrap"
   },
