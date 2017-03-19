@@ -5,5 +5,5 @@ require('babel-register')({
         return false;
     },
     'presets': ['es2015', 'stage-2'],
-    'plugins': ['transform-runtime']
+    'plugins': ['transform-runtime', 'transform-decorators-legacy']
 });
