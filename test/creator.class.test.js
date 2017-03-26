@@ -228,4 +228,3 @@ describe.skip('sagaCreator', function () {
         expect(mySpy.calledTwice, 'handler called twice').to.be.true;
     });
 });
-/* eslint no-unused-vars: 0 */  // --> OFF
