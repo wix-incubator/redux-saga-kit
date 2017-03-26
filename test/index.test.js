@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as SagaKit from '../src/index';
 
-const { sagaCreator, stateSelector, recipes } = SagaKit;
+const { sagaCreator, stateSelector, recipes, Saga } = SagaKit;
 
 describe('index.js', function () {
     it('should export sagaCreator', () => {
@@ -15,5 +15,8 @@ describe('index.js', function () {
     it('should export recipes', () => {
         expect(recipes, 'typeof recipes').to.be.a('object');
         expect(recipes.dispatchAndWait, 'typeof dispatchAndWait').to.be.iterable;
+    });
+    it('should export the "Saga" class', () => {
+        expect(Saga, 'typeof Saga').to.be.a('function');
     });
 });

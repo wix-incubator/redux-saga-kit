@@ -6,7 +6,7 @@ const SOME_ACTION = 'someAction';
 const SOME_OTHER_ACTION = 'someOtherAction';
 const SOME_THROTTLE = 300;
 
-describe.skip('decorators', function () {
+describe('decorators', function () {
     class MyClass {
         @handle(SOME_TYPE)
         handleTest() {}

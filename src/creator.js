@@ -58,3 +58,5 @@ export function sagaCreator(actionConfig) {
         yield forks;
     };
 }
+
+export class Saga {}
