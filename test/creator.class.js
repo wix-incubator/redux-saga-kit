@@ -44,7 +44,7 @@ function createSagaTester () {
     });
 }
 
-describe.skip('sagaCreator', function () {
+describe.skip('sagaCreator class', function () {
     let sagaTester = null;
     let mySpy = sinon.spy();
     let saga = null;
