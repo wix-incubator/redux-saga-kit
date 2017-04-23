@@ -1,5 +1,5 @@
 {
-  "name": "@wix/redux-saga-kit",
+  "name": "redux-saga-kit",
   "version": "1.0.0",
   "description": "A kit with tools to help create sagas",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
     "build": ":",
     "compile": "rm -rf dist/ && babel -d dist/ src/",
     "prepublish": "npm run compile && npm test",
-    "release": "wnpm-release -- --no-shrinkwrap"
+    "release": "npm install @wix/wnpm-ci && wnpm-release -- --no-shrinkwrap"
   },
   "dependencies": {
     "lodash": "^4.17.4",
@@ -16,7 +16,6 @@
     "redux-saga": "^0.14.3"
   },
   "devDependencies": {
-    "@wix/wnpm-ci": "^6.1.0",
     "babel": "^6.5.2",
     "babel-cli": "^6.14.0",
     "babel-core": "^6.23.1",
@@ -37,7 +36,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wix-private/redux-saga-kit.git"
+    "url": "git+https://github.com/wix/redux-saga-kit.git"
   },
   "keywords": [
     "redux",
@@ -46,10 +45,10 @@
   "author": "jonathana@wix.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wix-private/redux-saga-kit/issues"
+    "url": "https://github.com/wix/redux-saga-kit/issues"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "homepage": "https://github.com/wix-private/redux-saga-kit#readme"
+  "homepage": "https://github.com/wix/redux-saga-kit#readme"
 }

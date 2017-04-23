@@ -43,15 +43,40 @@ const generateWatcher = (sagaParams, actionType, defs) => function* () {
     }
 };
 
+function generateConfFromSaga (saga) {
+    const config = {};
+
+    for (let handler in saga) {
+        if (handler.handle) {
+            const type = handler.handle;
+
+            config[type] = {
+                handler,
+                takeLatest: handler.takeLatest,
+                throttle: handler.throttle,
+                cancelOn: handler.cancelOn
+            };
+        }
+    }
+
+    return config;
+}
+
 // ============================================================================
 // DEFAULT SAGA EXPORT
 // ============================================================================
 
-export function sagaCreator(actionConfig) {
+export function sagaCreator(sagaConfig) {
+    let config = sagaConfig;
+
+    if (config instanceof Saga) {
+        config = generateConfFromSaga(config);
+    }
+
     return function* (sagaParams) {
         let forks = [];
 
-        _.forEach(actionConfig, (defs, actionType) => {
+        _.forEach(config, (defs, actionType) => {
             forks.push(fork(generateWatcher(sagaParams, actionType, defs)));
         });
 

@@ -31,7 +31,7 @@ describe('decorators', function () {
 
     describe('handle', function () {
         it('should have a type property', function () {
-            expect(myTest.handleTest.type).to.equal(SOME_TYPE);
+            expect(myTest.handleTest.handle).to.equal(SOME_TYPE);
         });
     });
 
