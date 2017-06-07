@@ -11,7 +11,7 @@ This package aims to help with the creation and development of sagas.
 
 ### Install  
 
-    npm install --save @wix/redux-saga-kit
+    npm install --save redux-saga-kit
     
 
 ## What This Project Includes
@@ -28,7 +28,7 @@ The sagaCreator accepts a definitions object, and returns one saga that takes di
 
 #### How to use
 
-    import { sagaCreator } from '@wix/redux-saga-kit';
+    import { sagaCreator } from 'redux-saga-kit';
       
     const saga = sagaCreator({...definitionsObject});
 
@@ -110,7 +110,7 @@ As described above, this option gives an option to pass a handler without saga p
 
 #### How to use
 
-    import { stateSelector } from '@wix/redux-saga-kit';
+    import { stateSelector } from 'redux-saga-kit';
       
     const myPropSelector = stateSelector('path.to.my.prop', {default: 'value'});
     
