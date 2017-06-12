@@ -87,6 +87,11 @@ Else, it will call the handler for each action, regardless if previous handlers 
 
 For more information see: [takeLatest](https://redux-saga.github.io/redux-saga/docs/api/index.html#takelatestpattern-saga-args)
 
+##### takeFirst (boolean)
+_default: false_  
+
+When true, the handler will be called only once, and not at each action "fired".
+
 ##### throttle (boolean | number)
 _default: 100 (ms)_
   
