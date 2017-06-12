@@ -96,6 +96,14 @@ Alternatively, you can pass a number as the ms value to be throttled by.
 
  For more information see: [throttle](https://redux-saga.github.io/redux-saga/docs/api/index.html#throttlems-pattern-saga-args)
 
+##### cancelOn (string | array[string])
+_default: null_
+  
+With this property you can pass an action type, or a list of action types, that when they are "fired", this saga will
+be cancelled, if it is currently running. 
+
+ For more information see: [cancel](https://redux-saga.js.org/docs/api/#canceltask)
+
 ##### noParams (boolean)
 _default: false_  
 
