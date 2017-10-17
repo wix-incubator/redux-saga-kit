@@ -8,7 +8,7 @@
     "build": ":",
     "compile": "rm -rf dist/ && babel -d dist/ src/",
     "prepublish": "npm run compile && npm test",
-    "release": "npm install @wix/wnpm-ci && wnpm-release -- --no-shrinkwrap"
+    "release": "npm install wnpm-ci --no-save && wnpm-release -- --no-shrinkwrap"
   },
   "dependencies": {
     "lodash": "^4.17.4",
