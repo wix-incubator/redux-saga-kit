@@ -1,4 +1,4 @@
-import { call, fork, take, cancel, throttle, takeEvery, takeLatest } from 'redux-saga/effects';
+import { all, call, fork, take, cancel, throttle, takeEvery, takeLatest } from 'redux-saga/effects';
 import _ from 'lodash';
 
 function* runSingleTask (pattern, saga, ...args) {
@@ -97,7 +97,7 @@ export function sagaCreator(sagaConfig) {
             forks.push(fork(generateWatcher(sagaParams, actionType, defs)));
         });
 
-        yield forks;
+        yield all(forks);
     };
 }
 
