@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-kit",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A kit with tools to help create sagas",
   "main": "dist/index.js",
   "scripts": {

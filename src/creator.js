@@ -1,5 +1,9 @@
 import { all, call, fork, take, cancel, throttle, takeEvery, takeLatest } from 'redux-saga/effects';
-import _ from 'lodash';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
+import isFunction from 'lodash/isFunction';
+import isArray from 'lodash/isArray';
+import forEach from 'lodash/forEach';
 
 function* runSingleTask (pattern, saga, ...args) {
     return yield fork(function* () {
@@ -38,22 +42,22 @@ function* takeWithCancel(isLatest = false, takeFirst = false, pattern, cancelPat
         task = yield fork(runTask, taker, pattern, saga, ...args);
     }
 
-    if (_.isString(cancelPatterns)) {
+    if (isString(cancelPatterns)) {
         cancelPatterns = [cancelPatterns];
     }
 
-    if (_.isArray(cancelPatterns) && cancelPatterns.length > 0) {
+    if (isArray(cancelPatterns) && cancelPatterns.length > 0) {
         yield fork(listenToCancel, cancelPatterns, takeFirst, task, taker, pattern, saga, ...args);
     }
 }
 
 const generateWatcher = (sagaParams, actionType, defs) => function* () {
-    if (_.isFunction(defs)) {
+    if (isFunction(defs)) {
         yield takeEvery(actionType, defs(sagaParams));
-    } else if (_.isFunction(defs.handler)) {
+    } else if (isFunction(defs.handler)) {
         const handler = defs.noParams ? defs.handler : defs.handler(sagaParams);
         if (defs.throttle) {
-            let throttleMs = _.isNumber(defs.throttle) ? defs.throttle : 100;
+            let throttleMs = isNumber(defs.throttle) ? defs.throttle : 100;
             yield throttle(throttleMs, actionType, handler);
         } else {
             let cancelOn = defs.cancelOn || [];
@@ -93,7 +97,7 @@ export function sagaCreator(sagaConfig) {
     return function* (sagaParams) {
         let forks = [];
 
-        _.forEach(config, (defs, actionType) => {
+        forEach(config, (defs, actionType) => {
             forks.push(fork(generateWatcher(sagaParams, actionType, defs)));
         });
 

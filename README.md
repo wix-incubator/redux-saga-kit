@@ -20,7 +20,10 @@ At the moment, this project includes only two methods:
 * **stateSelector** - A helper method to easily create saga selectors
 
 ### sagaCreator  
-```sagaCreator(definition)```  
+```javascript
+sagaCreator(definition)
+```  
+
 **definition**: object
 ###### returns: Generator Function 
 The sagaCreator accepts a definitions object, and returns one saga that takes different 
@@ -54,7 +57,7 @@ _default: no default - must be provided_
 The handler function to be called every time the action is dispatched.  
 By default, the handler should be a function, accepting saga params, and that returns
 a function (or generator function) which will actually handle the action.  
-The returned function receives ```{payload}``` as an argument.
+The returned function receives `{payload}` as an argument.
 
 **Example**: 
     
@@ -116,16 +119,52 @@ As described above, this option gives an option to pass a handler without saga p
   
   
 ### stateSelector 
-```stateSelector(pathToProp, [defaultValue])```  
+```javascript
+stateSelector(pathToProp, [defaultValue])
+``` 
+
 **pathToProp**: string  
 **defaultValue**: any (optional)
 ###### returns: Any
 
 #### How to use
-
-    import { stateSelector } from 'redux-saga-kit';
-      
-    const myPropSelector = stateSelector('path.to.my.prop', {default: 'value'});
+```javascript
+import { stateSelector } from 'redux-saga-kit';
+  
+const myPropSelector = stateSelector('path.to[my].prop', 'someDefaultValue');
+```
     
-This is a pretty straight forward method.
- It uses lodash's [get](https://lodash.com/docs/4.17.4#get) method to get the property from the state.
+This is a pretty straight forward method.  
+It uses lodash's [get](https://lodash.com/docs/4.17.4#get) method to get the property from the state.  
+
+The first argument is a string representing the path to the property, and the second argument is a default value, 
+if the property is not found, or does not exist.
+
+In addition, you may use additional arguments, that are sent to the `select` function, by referencing them using
+`${args[index]}`, where `index` is the index of the argument in the function argument list + 1 (accounting for the 
+selector function being the first argument).
+
+For instance:
+
+```javascript
+import { select } from 'redux-saga/effects';
+import { stateSelector } from 'redux-saga-kit';
+
+/*
+    Assuming the state has the following structure:
+    state = {
+        arrayProp: [
+            {fooProp: 'foo'}, 
+            {fooProp: 'bar'}
+        ]
+    }
+    the function below will log: bar   
+*/
+
+function* example() {
+    const propIndex = 1;
+    const myPropSelector = stateSelector('arrayProp[${args[0]}].fooProp', 'someDefaultValue');
+    const value = yield select(myPropSelector, propIndex);
+    console.log(value);
+}
+```
