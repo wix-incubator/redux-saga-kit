@@ -141,7 +141,7 @@ The first argument is a string representing the path to the property, and the se
 if the property is not found, or does not exist.
 
 In addition, you may use additional arguments, that are sent to the `select` function, by referencing them using
-`${args[index]}`, where `index` is the index of the argument in the function argument list + 1 (accounting for the 
+`${args[index]}`, where `index` is the index of the argument in the function argument list - 1 (accounting for the 
 selector function being the first argument).
 
 For instance:
