@@ -19,6 +19,7 @@ function* runTask (takerFunc, pattern, saga, ...args) {
 }
 
 function* listenToCancel(cancelPatterns, takeFirst, task, taker, pattern, saga, ...args) {
+// eslint-disable-next-line no-constant-condition
     while (true) {
         yield take(cancelPatterns);
         yield cancel(task);

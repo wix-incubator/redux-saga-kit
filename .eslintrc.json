@@ -1,15 +1,24 @@
-module.exports = {
+{
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "node": true,
+        "mocha": true
     },
+    "plugins": [
+        "mocha"
+    ],
     "extends": "eslint:recommended",
     "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module",
-        "allowImportExportEverywhere": false
+        "ecmaVersion": 2017
     },
     "rules": {
+        "indent": [
+            "error",
+            4
+        ],
         "linebreak-style": [
             "error",
             "unix"
@@ -22,16 +31,13 @@ module.exports = {
             "error",
             "always"
         ],
-        "no-constant-condition": ["error", { "checkLoops": false }]
+        "no-console": [ "warn", { "allow":["log", "warn", "error"] } ],
+        "mocha/no-exclusive-tests": "error"
     },
     "globals": {
         "describe": true,
-        "it": true,
-        "context": true,
         "before": true,
         "beforeEach": true,
-        "after": true,
-        "afterEach": true,
-        "require": true
+        "it": true
     }
-};
+}
